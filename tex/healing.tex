@@ -23,3 +23,5 @@ simulated with a linear decrease of internal friction angle $\phi(\epsilon)$ and
 where $\phi_0$, $C_0$ and $\phi_{\infty}$, $C_{\infty}$ are internal friction angle and cohesion for $\epsilon_0$ and $\epsilon_{\infty}$, respectively
 \citep{Huismans2003,Huismans2005,Warren2008a,Thieulot2014}. Plastic softening approximates deformation-induced softening of faults and brittle shear zones
 \citep{Warren2008a}.
+
+The marker strain is computed by means of the deformation tensor. For each marker, the displacement gradient tensor $\textbf{F}$ is computed, then polar decomposition is carried on to write $\textbf{F}$ as product of stretch and rotation ($\textbf{F}=\textbf{V} \cdot \textbf{R}$). The principal stretches $\lambda_{1,2}$ are then computed as the eigenvalues of $\textbf V$, and the eigenvectors represent the directions of maximum stretch. The angle of rigid rotation is then calculated from $\textbf{R}$.

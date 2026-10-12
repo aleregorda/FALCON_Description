@@ -11,21 +11,19 @@ in compressional and extensional contexts with an angle of internal friction $\p
 
 As expected, two shear bands stem from the inclusion with variable angles in relation to both the dynamics context and the internal friction angle. Shear band
 angles formed at 45° for $\phi=0$° in both extensional and compressional contexts (Fig. \ref{fig:brick_beam}a), while they are different in case of $\phi\neq0$°.
-
-\begin{wrapfigure}{r}{12.5cm}
+Shear band angles in case of $\phi=20$° are shown for compression and extension in Fig. \ref{fig:brick_beam}b  and c, respectively.
+Values of shear band angles as function of internal friction angles from 0° to 30° are extracted at different depths and minimum and maximum values are plotted in Fig. \ref{fig:brick},
+in comparison with theoretical Roscoe, Arthur and Coulomb shear band angles.
+For all tests the tolerance for nonlinear convergence is defined $tol=10^{-7}$ and none converges before the maximum number of iterations ($it_{max}=1000$) is reached. However, tests with internal friction angles up to 15° show a constant decrease of the velocity residuals, which can not be observed for for tests with higher internal friction angles (Fig. \ref{fig:convergence}). 
+All data can be found \href{https://github.com/aleregorda/Benchmarks/tree/main/Nonlinear_visco_plasticity/Brick_experiment}{here}.
+\begin{figure}[h!]
+\centering
 \includegraphics[width=12.5cm]{./Figures/Brick_Beam.pdf}
 \caption{Shear band angles predicted for the brick experiment for $\phi=0$° (panel a) and for $\phi=20$° in case of compression and extension (panels b and c,
 respectively).}
 \label{fig:brick_beam}
-\end{wrapfigure}
-Shear band angles in case of $\phi=20$° are shown for compression and extension in Fig. \ref{fig:brick_beam}b  and c, respectively.
-Values of shear band angles as function of internal friction angles from 0° to 30° are extracted at different depths and minimum and maximum values are plotted in Fig. \ref{fig:brick},
-in comparison with theoretical Roscoe, Arthur and Coulomb shear band angles. For all tests the tolerance for nonlinear convergence is defined $tol=10^{-7}$
-and none converges before the maximum number of iterations ($it_{max}=1000$) is reached. However, tests with internal friction angles up to 15° show a constant
-decrease of the velocity residuals, which can not be observed for for tests with higher internal friction angles (Fig. \ref{fig:convergence}). 
-All data can be found at \url{https://github.com/aleregorda/Benchmarks/tree/main/Nonlinear_visco_plasticity/Brick_experiment}.
-
-\begin{figure}[h]
+\end{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{./Figures/Brick.pdf}
 \caption{Shear band angles predicted for the brick experiment in case of compressional and extensional contexts as function of different internal angle of
@@ -34,6 +32,7 @@ range of angles calculated at different depths.}
 \label{fig:brick}
 \end{figure}
 
+  \newpage
 \begin{figure}[h!]
   \centering
   \includegraphics[width=15cm]{./Figures/convergence.pdf}

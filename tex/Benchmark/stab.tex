@@ -2,7 +2,7 @@
 The benchmark is performed as discussed in \citet{Kaus2010a} and \citet{Thieulot2014}. The domain is square with $L_x=L_y=$ \SI{500}{\km} and a grid resolution
 of $200\times200$ elements, each of them containing 16 markers.
 
-\begin{wrapfigure}{r}{11cm}
+\begin{wrapfigure}{r}{10cm}
 \includegraphics[width=11cm]{./Figures/Kaus_random.pdf}
 \caption{Evolution of the y coordinate in $x=L_x$ as function of time for different time steps, with and without the stabilisation algorithm.}
 \label{fig:stab}
@@ -15,4 +15,4 @@ $x=L_x$ is tracked for each simulation, with or without the stabilisation algori
 The results show an instability (drunken sailor effect) increasing the time step in case that the stabilisation algorithm is not activated
 ($dt=$ \SI{4200}{\year}, green line in Fig. \ref{fig:stab}), as already observed by \citet{Kaus2010a} and \citet{Thieulot2014}. Activating the algorithm the
 instability is fixed and the simulation remains stable using time step up to \SI{50000}{\year} (red line in Fig. \ref{fig:stab}). All data can be 
-found at \url{https://github.com/aleregorda/Benchmarks/tree/main/Surface_processes/Stabilisation_algorithm}.
+found \href{https://github.com/aleregorda/Benchmarks/tree/main/Surface_processes/Stabilisation_algorithm}{here}.
