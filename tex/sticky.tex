@@ -1,0 +1,17 @@
+\section{Sticky air and free surface}\label{sec:sticky}
+The Earth's surface can be treated by means of either the so-called sticky-air or a true free surface method, both of them implemented in the code. In the
+sticky-air method the surface is approximated with the introduction of a buoyant layer with a viscosity at least four orders of magnitude lower than the crust
+\citep{Schmeling2008,Crameri2012} and the interface between lithosphere and air is defined using a chain of passive markers that are advected as the Lagrangian
+markers. The correctness of the evolution of the markers chain is tested with the experiment of a 2D time-dependent Stokes sphere below a free surface and
+compared with results from ASPECT\footnote{\url{https://aspect.geodynamics.org/}} \citep{Kronbichler2012,Heister2017,Bangerth2020,Bangerth2020a} (Section
+\ref{sec:sphere}). In the true free surface case the top boundary is assumed stress-free and velocities are not fixed. In this case topography variations are
+described by vertical deformations of the mesh that depend on the velocity field of the nodes that identify the free surface, while horizontal deformations are
+not taken into account. This procedure is known as the Arbitrary Lagrangian-Eulerian (ALE) method and its implementation follows the technique described in
+\citet{Thieulot2011}. However, although the implementation of a true free surface better reproduces laboratory experiment, extremely small time steps can be
+necessary to maintain stability \citep{Kaus2010a,Quinquis2011,Thieulot2014}. Therefore, the stability algorithm proposed by \citet{Kaus2010a} is implemented
+to avoid instabilities due to high density differences at the free surface when using too large time steps. The implementation of this algorithm are tested by
+performing the experiment described by \citet{Kaus2010a} (Section \ref{sec:stab}).
+
+The topography relaxation benchmark proposed by \citet{Crameri2012} is performed to verify that the code correctly recovers topography variations in case of
+both the sticky-air and the true free surface method (Section \ref{sec:crameri}). Finally, Section \ref{sec:subduction} show the results of the spontaneous
+subduction experiment described by \citet{Schmeling2008}.

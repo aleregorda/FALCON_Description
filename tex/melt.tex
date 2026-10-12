@@ -1,0 +1,50 @@
+\section{Mantle melting}\label{sec:melt}
+Melt fraction in the mantle depends on temperature ($T$, in \textdegree C), pressure ($p$, in \si{\giga\pascal}) and the water content in the melt ($X_{H_2O}$, in wt.\%).
+The determination of the melt fraction $M$ is implemented as explained by \citet{Katz2003}, according to the successive modification by \citet{Langmuir2006} and
+\citet{Kelley2010}, as follows
+\begin{eqnarray}\label{eq:melt_fr}
+M(p,T,X_{H_2O})&=&-T+T_{sol}+(x_t\cdot ln(p+y_t))\cdot X_{H_2O}-\nonumber\\
+&&+K_m\left(\frac{X_{H_2O}^{bulk}}{D_{H_2O}(1-X_{H_2O})+X_{H_2O}}\right)^{\gamma}
+\end{eqnarray}
+where $T_{sol}$ is the temperature of the dry solidus, $D_{H_2O}$ is the partition coefficient and $x_t\cdot log(p+y_t)$ indicates the pressure dependence of
+the melting curve \citep{Kelley2010}. $x_t$, $y_t$, $K_m$ and $\gamma$ are parameters chosen in according to \citet{Kelley2010}.
+However, $X_{H_2O}$ depends on the melt fraction as
+\begin{eqnarray}\label{eq:melt_wt}
+X_{H_2O}(M)=\frac{X_{H_2O}^{bulk}}{D_{H_2O}+M(1-D_{H_2O})}
+\end{eqnarray}
+and a numerical solution can be found using a root-finder method \citep{Katz2003,Wang2016}. Furthermore, the content of water in the melt is limited by the
+pressure-dependent saturation concentration of water in the melt, determined as
+\begin{eqnarray}\label{eq:melt_max}
+X_{H_2O}^{sat}=\chi_1 p^{\lambda_m}+\chi_2 p
+\end{eqnarray}
+where $\chi_1$, $\chi_2$ and $\lambda_m$ are parameters chosen according to \citet{Katz2003}, \citet{Langmuir2006} and \citet{Kelley2010}. The correctness in
+the determination of melt fractions and water contents in the melt are tested comparing model results with experimental curves obtained by \citet{Katz2003}
+(Sec. \ref{sec:katz}).
+
+In case of melting, viscous creep viscosity ($\eta_{vp}$) is modified according to \citet{Wang2016}, as
+\begin{eqnarray}\label{eq:melt_visc}
+\eta_{melt}=\eta_{vp}\cdot \exp(\alpha_m M)
+\end{eqnarray}
+where $\alpha_m$ are melt fraction factors for dislocation and diffusion creep, chosen in according to \citet{Wang2016}.
+
+Effective density ($\rho_{eff}$) for partially molten rocks is calculated as
+\begin{eqnarray}\label{eq:melt_dens}
+\rho_{eff}=\rho_s(1-M)+\rho_m M
+\end{eqnarray}
+where $\rho_s$ and $\rho_m$ are the densities of the solid and the molten rock, respectively \citep{Gerya2004b,Gerya2007,Wang2016}. The density of the
+solid rock is extracted by Perple\_X, while the density of the molten portion is calculated as
+\begin{eqnarray}\label{eq:melt_dens_M}
+\rho_m(p,T)=\rho_0[1-\alpha(T-T_0)][1+\beta(p-p_0)]
+\end{eqnarray}
+where $\rho_0$ is the density at the reference temperature ($T_0$) and pressure($p_0$), and $\alpha$ and $\beta$ are the thermal expansion and compressibility
+coefficients, respectively \citep{Gerya2004b,Gerya2007,Wang2016}.
+
+As for the phase transitions, effects of density variations on buoyancy force in the momentum equation (Eq. \ref{eq:momentum_penalty}) are taken into account
+considering effective coefficient of thermal expansion. Similarly, latent heat due to melting/crystallisation can be implicitly included in the energy equation
+(Eq. \ref{eq:energy}) by considering effective specific heat ($C_{p_{eff}}$) and thermal expansion ($\alpha_{eff}$) of the partially molten rocks, in according to
+\begin{eqnarray}
+\label{eq:cp_effective}C_{p_{eff}}&=&C_p+H_L\left(\frac{\partial M}{\partial T}\right)_p \\
+\label{eq:alpha_effective}\alpha_{eff}&=&\alpha+\rho\frac{H_L}{T}\left(\frac{\partial M}{\partial p}\right)_T
+\end{eqnarray}
+where $C_p$ and $\alpha$ are the specific heat and the coefficient of thermal expansion of the solid rock, respectively, and $H_L$ is the latent heat of the
+molten rock \citep{Gerya2004b,Gerya2007,Tackley2010}.

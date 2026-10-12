@@ -1,0 +1,98 @@
+% Geometry 
+\usepackage{geometry}
+\geometry{
+  paper=a4paper,
+  pdftex=true,
+  twoside=false,
+  nomarginpar, % no margin paragraphs; suppress warning
+  ignoreall, % textblock excludes head and foot material
+  margin=2cm, % all textblock margins equal to 2cm
+  headheight=30pt, 
+  headsep=3mm,
+  footskip=8mm
+}
+
+% Font 
+\renewcommand*{\familydefault}{\sfdefault}
+
+
+% Mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{sfmath}
+\setlength\mathindent{2em}
+\AtBeginDocument{%
+ \abovedisplayskip=0pt plus 3pt minus 9pt
+ \abovedisplayshortskip=0pt plus 3pt
+ \belowdisplayskip=10pt plus 3pt minus 9pt
+ \belowdisplayshortskip=7pt plus 3pt minus 4pt
+}
+
+% Color
+%\usepackage[usenames]{xcolor}
+
+% Figures
+\usepackage{graphicx}
+
+% Additional space
+\usepackage{xspace}
+\setlength\parindent{0pt}
+\setlength\parskip{0pt}
+
+% Literature references
+%\usepackage[sort]{cite}\usepackage{doi}
+
+%% Part title look
+%\setcounter{part}{0}
+%\renewcommand{\thepart}{\Alph{part}}
+%\renewcommand{\thesection}{\thepart.\arabic{section}}
+%\definecolor{partbar}{RGB}{200,200,200}
+%\renewcommand\part[1]{
+%  \stepcounter{part}
+%  \clearpage % has no effect if no material has been placed yet
+%\vspace*{-2\baselineskip}
+%  \noindent\setlength{\fboxsep}{0pt}\fbox{\colorbox{partbar}{\parbox[t][1.1\baselineskip][c]{\dimexpr\textwidth-2\fboxsep}{\centering\normalfont\bfseries Part \thepart\enskip-\enskip #1}}}
+%  \setcounter{section}{0}
+%  \vspace*{-.5\baselineskip}
+%}
+
+% Change spacing around headers
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing*{\subsubsection}{0pt}{\baselineskip}{0pt}
+\titleformat*{\section}{\normalfont\bfseries}
+\titleformat*{\subsection}{\normalfont\bfseries}
+\titleformat*{\subsubsection}{\normalfont\bfseries}
+
+% Lists
+\usepackage{enumitem}
+
+% Control texttable environment and other floats
+\usepackage{float}
+
+% Headers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lipsum}
+\usepackage{ifthen}
+\newcounter{Mtype}
+\newcommand{\M}[1]{\setcounter{Mtype}{#1}}
+\definecolor{footgray}{RGB}{240,240,240}
+\pagestyle{fancy}
+\chead{}
+\lfoot{}
+\cfoot{\thepage\enskip/\enskip\pageref{LastPage}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% Some basic tables
+\newenvironment{texttable}[2]{
+  \begin{table}[H]
+    \vspace*{-\baselineskip}
+    \begin{tabular}{@{}p{#1}p{#2}@{}}
+}{
+    \end{tabular}
+    \vspace*{-.5\baselineskip}
+  \end{table}  
+}

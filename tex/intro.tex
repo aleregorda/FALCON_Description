@@ -1,0 +1,50 @@
+\section{Introduction}\label{sec:intro}
+This document includes a description of the code FALCON (Fem ALgorithm for COmputational aNalisys), with a presentation of the features implemented followed by results of extensive benchmarks listed in
+Table \ref{tab:list}, performed to verify that the code solves correctly a wide range of problems. Description and results of all benchmarks are shown
+in Section \ref{sec:benchmark}.
+
+\begin{table}[H]
+\caption{List of benchmarks performed for each feature of the code. Data of all benchmarks can be found at 
+\url{https://github.com/aleregorda/Benchmarks}}
+\centering
+\begin{tabular}{| l | l | l |}
+\toprule
+ \textbf{Feature}  & \textbf{Benchmark} & \textbf{Section} \\
+\midrule
+  Solver  & Stokes flow & \ref{sec:stokes} \\
+\hline
+  \multirow{2}{*}{Markers advection} & Zalesak disk & \ref{sec:runge} \\
+    & Conservative Velocity Interpolation & \ref{sec:CVI} \\
+\hline
+  \multirow{4}{*}{Momentum equation}  & Poiseuille flow & \ref{sec:poiseuille}\\
+    & Instantaneous 2D sphere & \ref{sec:ist_sphere} \\
+    & Rayleigh-Taylor experiment & \ref{sec:rayleigh} \\
+    & Falling block & \ref{sec:block} \\
+\hline
+    & 2D Stokes sphere & \ref{sec:sphere} \\
+    Sticky air and  & Stabilisation algorithm & \ref{sec:stab} \\
+    free surface & Topography relaxation & \ref{sec:crameri} \\
+  & Spontaneous subduction & \ref{sec:subduction} \\
+\hline
+  Erosion and sedimentation  & - & - \\
+\hline
+    \multirow{3}{*}{Non-linear rheology} & Slab detachment & \ref{sec:slab} \\
+    & Indenter & \ref{sec:indenter} \\
+    & Brick & \ref{sec:brick} \\
+\hline
+  \multirow{3}{*}{Energy equation}  & Advection stabilisation & \ref{sec:advection} \\
+    & Simple shear heating & \ref{sec:simple_shear} \\
+    & Shear and adiabatic heating & \ref{sec:shear} \\
+\hline
+\multirow{3}{*}{Energy + momentum} & Mantle convection & \ref{sec:mantle} \\
+& Viscoplastic mantle convection & \ref{sec:visco_mantle} \\
+& Thin layer entrainment & \ref{sec:thin} \\
+\hline
+  Phase changes  & \multirow{2}{*}{Hydrated sinking cylinder} & \multirow{2}{*}{\ref{sec:quinquis}} \\
+  and hydration  &  & \\
+\hline
+  Melting & Experimental melting curves & \ref{sec:katz} \\
+\bottomrule
+\end{tabular}
+\label{tab:list}
+\end{table}

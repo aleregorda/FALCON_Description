@@ -1,0 +1,24 @@
+\section{The momentum equation}\label{sec:mom_eq}
+The penalty method is implemented so that Eq. \ref{eq:mass_0} can be written as:
+\begin{eqnarray}\label{eq:mass_penalty}
+\bm{\nabla} \cdot \bm{u} + \frac{p}{\lambda}=0
+\end{eqnarray}
+where $\lambda$ is the so-called penalty parameter, which should be 6-7 orders of magnitude larger than the shear viscosity to ensure that mass conservation
+is satisfied \citep{Donea2003,Thieulot2014}.
+
+The deviatoric stress tensor in Eq. \ref{eq:momentum} can be written in terms of the strain rate tensor as $\bm{\tau}=2\eta\dot{\bm{\epsilon}}$, with
+$\dot{\bm{\epsilon}}=\frac{1}{2}\left(\bm{\nabla}\bm{v}+(\bm{\nabla}\bm{v})^T\right)$. Therefore, Eq. \ref{eq:momentum} can be rewritten as:
+\begin{eqnarray}\label{eq:momentum_pressure}
+-\bm{\nabla} p + \bm{\nabla} \cdot \left(\eta \left(\bm{\nabla}\bm{v}+(\bm{\nabla}\bm{v})^T\right)\right) + \rho \bm{g} = 0
+\end{eqnarray}
+Finally, using pressure from Eq. \ref{eq:mass_penalty}, Eq. \ref{eq:momentum_pressure} can be rewritten as:
+\begin{eqnarray}\label{eq:momentum_penalty}
+\lambda \bm{\nabla} \left(\bm{\nabla} \cdot \bm{v}\right)+\bm{\nabla} \cdot \left(\eta \left(\bm{\nabla}\bm{v}+(\bm{\nabla}\bm{v})^T\right)\right)+\rho\bm{g}=0
+\end{eqnarray}
+The penalty method is been associated to the iterative Uzawa method, as described in detail in \citet{Dabrowski2008} and \citet{Thieulot2014}
+(see Section \ref{sec:poiseuille}). Results of benchmarks performed to verify the correctness in the implementation of Eq. \ref{eq:momentum_penalty} are
+shown in Sections \ref{sec:ist_sphere} and \ref{sec:rayleigh}.
+
+To support large viscosities variations the penalty parameter is related to the effective elemental viscosity by means of a dimensionless coefficient, so that
+$\lambda=\lambda_e(e)\eta_{eff}(e)$ \citep{Marotta2006,Dabrowski2008,Thieulot2014}. Benchmark of the falling block \citep{Gerya2003a,Gerya2010,Thieulot2011}
+is performed to verify that the code can correctly deal buoyancy driven flows with strong viscosity contrasts (Section \ref{sec:block}).

@@ -1,0 +1,25 @@
+\section{Healing and weakening}\label{sec:healing}
+The temporal evolution of the accumulated strain $\epsilon$ has been implemented as in \citet{Fuchs2019,Fuchs2021}, as following
+\begin{eqnarray}\label{eq:healing}
+  \frac{d\epsilon}{dt}=I_2 - \epsilon H_{rate}(T)
+\end{eqnarray}
+where the first term on the right-hand side is a source term given by the second invariant of the strain rate $I_2$ and the second term a
+temperature-dependent healing factor $H_{rate}$, calculated as
+\begin{eqnarray}\label{eq:healing_rate}
+  H_{rate}(T)=B \exp \left[-\frac{\mu}{2}\left(\frac{1}{T+1}-\frac{1}{2}\right)\right]
+\end{eqnarray}
+where $B$ is a constant describing the time scale of healing, while $\mu$ and $T$ are the non-dimensional temperature activation and temperature,
+respectively \citep{Fuchs2019,Fuchs2021}.
+
+Strain softening is taken into account for both viscous creep and plastic viscosity \citep{Huismans2003,Babeyko2005,Huismans2005,Sobolev2005,Warren2008a} by
+means of the accumulated strain $\epsilon$ memorised by each marker. Softening in the viscous creep determines a linear decrease of $\eta_{vc}$ by means of a
+viscous strain softening factor $W_S$ that increases linearly from $W_{S_0}$ to $W_{S_{\infty}}$ for $\epsilon_{S_0}<\epsilon_S<\epsilon_{S_{\infty}}$ 
+\citep{Warren2008a}. This viscous softening can be related to strain-induced grain size reduction \citep{Warren2008a}. Differently, plastic softening is 
+simulated with a linear decrease of internal friction angle $\phi(\epsilon)$ and cohesion $C(\epsilon)$ in according to
+\begin{eqnarray}
+\label{eq:friction1}\phi(\epsilon)&=&\phi_0+(\phi_{\infty}-\phi_0)\frac{\epsilon-\epsilon_0}{\epsilon_{\infty}-\epsilon_0}\\
+\label{eq:friction2}C(\epsilon)&=&C_0+(C_{\infty}-C_0)\frac{\epsilon-\epsilon_0}{\epsilon_{\infty}-\epsilon_0}
+\end{eqnarray}
+where $\phi_0$, $C_0$ and $\phi_{\infty}$, $C_{\infty}$ are internal friction angle and cohesion for $\epsilon_0$ and $\epsilon_{\infty}$, respectively
+\citep{Huismans2003,Huismans2005,Warren2008a,Thieulot2014}. Plastic softening approximates deformation-induced softening of faults and brittle shear zones
+\citep{Warren2008a}.

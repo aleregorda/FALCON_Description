@@ -1,0 +1,29 @@
+%Surface processes at the lithosphere-air interface are implemented taking into account fluvial erosion (long-range processes), hillslope processes (short-range
+%processes) and failure of slopes exceeding a threshold angle $\theta$ \citep{Burov1997,Tucker1999,Sacek2012,Croissant2014,Ueda2015,Beucher2020}. Erosion rates
+%$\dot{E}_{lr}$ due to long-range processes can be described by a stream power law equation \citep{Tucker1999,Ueda2015,Beucher2020}, in according to
+%\begin{equation}
+%\dot{E}_{lr}=K_f A^{m_e} \bm{\nabla} h^{n_e}
+%\end{equation}
+%where $K_f$ is the erodibility coefficient, $A$ is the upstream drainage area, $\bm{\nabla} h$ is the slope and $m_e$ and $n_e$ are parameters chosen in to
+%constrain the ratio $m_e/n_e$ between 0.35 and 0.8 \citep{Croissant2014,Ueda2015,Beucher2020}. Erosion rates $\dot{E}_{sr}$ due to short-range processes are
+%implemented by assuming that transport is linearly proportional to slope \citep{Burov1997,Ueda2015,Beucher2020}, in according to
+%\begin{equation}
+%\dot{E}_{sr}=K_d \bm{\nabla}^2 h
+%\end{equation}
+%where $K_d$ is the effective diffusivity. In addition, the slope is modified if it still exceeds a threshold angle after long- and short-range processes
+%\citep{Ueda2015}.
+
+%Offshore sedimentation processes are implemented similarly to hillslope processes but with a depth-dependent coefficient \citep{Sacek2012,Beucher2020}.
+%The sedimentation rate $\dot{S}$ is calculated as
+%\begin{equation}
+%\dot{S}=K_s \bm{\nabla}^2 h
+%\end{equation}
+%with
+%\begin{equation}
+%K_s=K^*_s \exp\left(\frac{h-h_{sl}}{h_0}\right)
+%\end{equation}
+%where $K^*_s$ is a constant, $h_{sl}$ is the sea level and $h_0$ is a characteristic length. In case of sticky air, slope is determined by means of the markers
+%chain, which is vertically corrected considering erosion and sedimentation rates. After the correction, continental markers above the markers chain are
+%transformed in air markers and air markers below the markers chain become sediments. Similarly, slope is determined considering the nodes on the top boundary
+%in case of true free surface and they are vertically corrected as for the markers chain. In this case, continental markers above the top boundary are simply
+%deleted.

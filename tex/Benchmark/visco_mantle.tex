@@ -1,0 +1,164 @@
+\subsection{Viscoplastic mantle convection}\label{sec:visco_mantle}
+This benchmark is performed as Cases 1-5a described in \citet{Tosi2015} in a 2D unit square domain with two different grid resolutions of $32\times32$ and $100\times100$ elements. Reference viscosity, reference density, heat capacity, thermal conductivity and thermal expansion coefficient are fixed to a constant
+value of 1 ($\eta_0= \rho_0= C_p = k=\alpha=1$), while the gravity has been chosen as $g_y=10^2$, in order to obtain a Rayleigh number $Ra=10^2$. Temperatures
+are set to 0 on top and 1 on bottom of the domain. Velocity boundary conditions are set to free slip on all sides. The initial temperature field is given by
+\begin{eqnarray}
+T(x,y)=(1-y)+0.01 \cos (\pi x) \sin (\pi y)\nonumber
+\end{eqnarray}
+The viscosity field $\eta$ is calculated as the harmonic average between a linear part $\eta_{lin}$ that depends on temperature only or on temperature and 
+depth $y$ and a nonlinear-plastic part $\eta_{pl}$ that depends on the strain rate $\dot{\bm{\epsilon}}$, as follows
+\begin{eqnarray}
+\eta(T,y,\dot{\bm{\epsilon}})=2\left(\frac{1}{\eta_{lin}(T,y)}+\frac{1}{\eta_{pl}(\dot{\bm{\epsilon}})}\right)^{-1}\nonumber
+\end{eqnarray}
+The linear and the nonlinear-plastic parts of the viscosity are calculated following \citet{Tosi2015} as follows
+\begin{eqnarray}
+\eta_{lin}(T,y)&=&\exp(-\ln(\Delta\eta_T)T+\ln(\Delta\eta_y)y)\nonumber\\
+\eta_{pl}(\dot{\bm{\epsilon}})&=&\eta^*+\frac{\sigma_Y}{\sqrt{\dot{\bm{\epsilon}}:\dot{\bm{\epsilon}}}}\nonumber
+\end{eqnarray}
+where $\Delta\eta_T$, $\Delta\eta_y$, $\eta^*$ and $\sigma_Y$ are parameters chosen as listed in Table \ref{tab:tosi_setup}.
+\begin{table}[h!]
+  \caption{Benchmark cases and corresponding parameters.}
+  \centering
+  \small
+\begin{tabular}{|>{\centering}m{0.08\linewidth}|>{\centering}m{0.05\linewidth}>{\centering}m{0.05\linewidth}>{\centering}m{0.05\linewidth}
+  >{\centering}m{0.05\linewidth} >{\centering}m{0.05\linewidth} |>{\centering\arraybackslash}m{0.2\linewidth}|}
+  \toprule
+    Case & $Ra$ & $\Delta\eta_T$ & $\Delta\eta_y$ & $\eta^*$ & $\sigma_Y$ & Convective regime \\
+  \midrule
+  \rowcolor{gray!25!}
+    1 & $10^2$ & $10^5$ & 1 & - & - & Stagnant lid \\
+    2 & $10^2$ & $10^5$ & 1 & $10^{-3}$ & 1 & Mobile lid  \\
+    \rowcolor{gray!25!}
+    3 & $10^2$ & $10^5$ & 10 & - & - & Stagnant lid  \\
+    4 & $10^2$ & $10^5$ & 10 & $10^{-3}$ & 1 & Mobile lid \\
+    \rowcolor{gray!25!}
+    5 & $10^2$ & $10^5$ & 10 & $10^{-3}$ & 4 & Periodic \\
+  \bottomrule
+  \end{tabular}
+  \label{tab:tosi_setup}
+  \end{table}
+
+For each case, some diagnostic quantities measured at the steady state are reported in Table \ref{tab:visco_mantle} (see Section \ref{sec:error} for 
+the computation of all the quantities), showing a well fit with results described in \citet{Tosi2015}. Data and charts for all cases can be found at 
+\url{https://github.com/aleregorda/Benchmarks/tree/main/Momentum%2BEnergy/Viscoplastic_mantle_convection}.
+
+%\renewcommand{\arraystretch}{1.5}
+%{\rowcolors{3}{white!100!}{gray!25!}
+%\begin{table}[H]
+%  \caption{Results of the viscoplastic mantle convection benchmark for Cases 1-4 compared with results obtained with ELEFANT and YACC (from \citealp{Tosi2015}).}
+%  \centering
+%  \resizebox{\linewidth}{!}{
+%\begin{tabular}{|c|ccc|ccc|ccc|ccc|}
+%  \toprule
+%    & \multicolumn{3}{c|}{\textbf{Case 1}} & \multicolumn{3}{c|}{\textbf{Case 2}} & \multicolumn{3}{c|}{\textbf{Case 3}} &
+%    \multicolumn{3}{c|}{\textbf{Case 4}} \\
+%   & FALCON & ELEFANT& YACC & FALCON& ELEFANT& YACC & FALCON & ELEFANT & YACC & FALCON & ELEFANT & YACC \\
+%  \midrule
+%   $\left\langle T \right\rangle$ & 0.7759 & 0.7758 & 0.7767 & 0.6043 & 0.6036 & 0.6058 & 0.7275 & 0.7275 & 0.7286 & & 0.5277 & 0.5289\\
+%    Nu$^{top}$ & 3.4280 & 3.4214 & 3.4298 & 8.5242 & 8.5115 & 8.5278 & 3.0368 & 3.0347 & 3.0374 && 6.5912 & 6.5572 \\
+%    Nu$^{bottom}$ & 3.3168 & 3.313 & 3.3143 & 8.4599 & 8.4465 & 8.3990 & 3.0086 & 2.9908 & 2.9628 && 6.5834 & 6.5243 \\
+%    $v_{\textrm{rms}}$ & 249.901 & 249.134 & 251.7997 & 141.2451 & 140.7087 & 142.2020 & 100.2776 & 100.1208 & 100.9467 && 79.1105 & 79.6202 \\
+%    $v_{\textrm{rms}}^{top}$ & 1.8907 & 1.8642 & 1.8298 & 104.7928 & 104.1228 & 105.1767 & 2.0832 & 2.0652 & 2.0374 && 74.7596 & 75.8414 \\
+%    $u_{max}^{top}$ & 2.6340 & 2.6119 & 2.5516 & 121.9212& 121.766 & 122.3238 & 2.9086 & 2.9019 & 2.8458 && 88.9146 & 89.2940 \\
+%    $\eta_{min}$ & - & - & - & $2.0303\times10^{-5}$ & $2.0600\times10^{-5}$ & $1.9853\times10^{-5}$ & $4.8129\times10^{-5}$ & $4.8080\times10^{-5}$ & $4.7907\times10^{-5}$ &
+%    & $1.9860\times10^{-4}$ & $1.9174\times10^{-4}$ \\
+%    $\eta_{max}$ & - & - & - & 1.3325 & 1.85 & 1.6095 & 0.9360 & 0.9023 & 1 && 1.52 & 1.6773 \\
+%    $\left\langle W \right\rangle$ & 2.4299 & 2.4316 & 2.4583 & 7.5648 & 7.5665 & 7.6222 & 2.0387 & 2.0384 & 2.0400 && 5.6216 & 5.6512 \\
+%    $\left\langle \Phi \right\rangle/Ra$ & 2.4311 & 2.4276 & 2.4333 & 7.5661 & 7.5585 & 7.6194 & 2.0386 & 2.0370 & 2.0335 && 5.6182 & 5.6463 \\
+%    $\delta$ & 0.05\% & 0.16\% & 1.02\% & 0.02\% & 0.11\% & 0.04\% & $<$0.01\% & 0.07\% & 0.32\% && 0.06\% & 0.09\% \\
+%  \bottomrule
+%  \end{tabular}}
+%  \label{tab:visco_mantle}
+%  \end{table}
+%\renewcommand{\arraystretch}{1.5}
+%{\rowcolors{2}{white!100!}{gray!25!}
+
+\renewcommand{\arraystretch}{1.35}
+%{\rowcolors{3}{gray!25!}{white!100!}
+\begin{table}[H]
+  \caption{Results of the viscoplastic mantle convection benchmark for different grid resolutions in Cases 1-5 compared with results obtained with ELEFANT
+  and YACC ($100\times100$ elements, from \citealp{Tosi2015}) and in Stone 28 ($32\times32$ elements, from
+  \url{https://github.com/cedrict/fieldstone/tree/master/python_codes/fieldstone_28}).}
+  \centering
+  \resizebox{\linewidth}{!}{
+\begin{tabular}{|cc|ccccccccccc|}
+  \toprule
+  \multicolumn{13}{|c|}{\textbf{Case 1}} \\
+  \midrule
+  Code & Resolution & $\left\langle T \right\rangle$ & Nu$^{top}$ & Nu$^{bottom}$ & $v_{\textrm{rms}}$ & $v_{\textrm{rms}}^{top}$& $u_{max}^{top}$& $\eta_{min}$
+  & $\eta_{max}$ & $\left\langle W \right\rangle$ & $\left\langle \Phi \right\rangle/Ra$ & $\delta$ \\
+  \hline
+  \rowcolor{gray!25!}
+    YACC & $100\times100$ & 0.7767 & 3.4298 & 3.3143 & 251.7997 & 1.8298 & 2.5516 & - & - & 2.4583 & 2.4333 & 1.02\% \\
+    ELEFANT & $100\times100$ & 0.7758 & 3.4214 & 3.313 & 249.134 & 1.8642 & 2.6119 & - & - & 2.4316 & 2.4276 & 0.16\% \\
+    \rowcolor{gray!25!}
+    Stone 28 & $32\times32$ & 0.7737 & 3.3987 & - & 243.872 & - & - & - & - & - & - & - \\
+%    FALCON & $32\times32$ & 0.7750 & 3.4381 & 2.7363 & 248.3337 & 2.0022 & 2.7813 & - & - & 2.4745 & 2.4864 & 0.48\% \\
+%    \rowcolor{gray!25!}
+    FALCON & $100\times100$ & 0.7759 & 3.4280 & 3.3168 & 249.901 & 1.8907 & 2.6340 & - & - & 2.4299 & 2.4311 & 0.05\% \\
+    \midrule
+    \multicolumn{13}{|c|}{\textbf{Case 2}} \\
+    \midrule
+    Code & Resolution & $\left\langle T \right\rangle$ & Nu$^{top}$ & Nu$^{bottom}$ & $v_{\textrm{rms}}$ & $v_{\textrm{rms}}^{top}$& $u_{max}^{top}$& $\eta_{min}$
+    & $\eta_{max}$ & $\left\langle W \right\rangle$ & $\left\langle \Phi \right\rangle/Ra$ & $\delta$ \\
+    \hline
+    \rowcolor{gray!25!}
+     YACC & $100\times100$ & 0.6058 & 8.5278 & 8.3990 & 142.2020 & 105.1767 & 122.3238 & $1.9853\times10^{-5}$ & 1.6095 & 7.6222 & 7.6194 & 0.04\% \\
+     ELEFANT & $100\times100$ & 0.6034 & 8.5115 & 8.4465 & 140.8067 & 104.1228 & 121.766 & $2.0600\times10^{-5}$ & 1.85 & 7.5665 & 7.5585 & 0.11\% \\
+     \rowcolor{gray!25!}
+     Stone 28 & $32\times32$ & 0.6052 & 8.1715 & - & 141.518 & - & - & - & - & - & - & - \\
+%     FALCON & $32\times32$ & 0.6454 & 8.1422 & 7.4020 & 156.6908 & 95.7226 & 116.9302 & $2.2572\times10^{-5}$ & 0.7194 & 7.4289 & 7.4452 & 0.22\% \\
+%     \rowcolor{gray!25!}
+     FALCON & $100\times100$ & 0.6044 & 8.5266 & 8.4590 & 141.3684 & 104.8867 & 122.0470 & $2.0333\times10^{-5}$ & 1.2914 & 7.5707 & 7.5718 & 0.01\% \\
+     \midrule
+     \multicolumn{13}{|c|}{\textbf{Case 3}} \\
+     \midrule
+     Code & Resolution & $\left\langle T \right\rangle$ & Nu$^{top}$ & Nu$^{bottom}$ & $v_{\textrm{rms}}$ & $v_{\textrm{rms}}^{top}$& $u_{max}^{top}$& $\eta_{min}$
+     & $\eta_{max}$ & $\left\langle W \right\rangle$ & $\left\langle \Phi \right\rangle/Ra$ & $\delta$ \\
+     \hline
+     \rowcolor{gray!25!} 
+     YACC & $100\times100$ & 0.7286 & 3.0374 & 2.9628 & 100.9467 & 2.0374 & 2.8458 & $4.7907\times10^{-5}$ & 1 & 2.0400 & 2.0335 & 0.32\% \\
+      ELEFANT & $100\times100$ & 0.7275 & 3.0347 & 2.9908 & 100.1208 & 2.0652 & 2.9019 & $4.8080\times10^{-5}$ & 0.9023 & 2.0384 & 2.037 & 0.07\% \\
+      \rowcolor{gray!25!}
+      Stone 28 & $32\times32$ & 0.7277 & 3.0347 & - & 100.018 & - & - & - & - & - & - & - \\
+%      FALCON & $32\times32$ & 0.7281 & 3.0618 & 2.8132 & 101.0092 & 2.1630 & 3.0178 & $4.8500\times10^{-5}$ & 0.7845 & 2.0699 & 2.0695 & 0.02\% \\
+%      \rowcolor{gray!25!}
+      FALCON & $100\times100$ & 0.7275 & 3.0368 & 3.0086 & 100.2776 & 2.0832 & 2.9086 & $4.8129\times10^{-5}$ & 0.9360 & 2.0387 & 2.0386 & $<$0.01\% \\
+      \midrule
+      \multicolumn{13}{|c|}{\textbf{Case 4}} \\
+      \midrule
+      Code & Resolution & $\left\langle T \right\rangle$ & Nu$^{top}$ & Nu$^{bottom}$ & $v_{\textrm{rms}}$ & $v_{\textrm{rms}}^{top}$& $u_{max}^{top}$& $\eta_{min}$
+      & $\eta_{max}$ & $\left\langle W \right\rangle$ & $\left\langle \Phi \right\rangle/Ra$ & $\delta$ \\
+      \hline
+      \rowcolor{gray!25!} 
+      YACC & $100\times100$ & 0.5289 & 6.5572 & 6.5243 & 79.6202 & 75.4814 & 89.2940 & $1.9174\times10^{-4}$ & 1.6773 & 5.6512 & 5.6463 & 0.09\% \\
+       ELEFANT & $100\times100$ & 0.5277 & 6.5912 & 6.5834 & 79.1105 & 74.7596 & 88.9146 & $1.9860\times10^{-4}$ & 1.5200 & 5.6216 & 5.6182 & 0.06\% \\
+       \rowcolor{gray!25!}
+       Stone 28 & $32\times32$ & 0.5286 & 6.4036 & - & 79.4746 & - & - & - & - & - & - & - \\
+%       FALCON & $32\times32$ & 0.5334 & 6.4679 & 6.3435 & 80.6153 & 76.0511 & 90.2058 & $2.0393\times10^{-4}$ & 0.6453 & 5.6676 & 5.6698 & 0.04\% \\
+%       \rowcolor{gray!25!}
+       FALCON & $100\times100$ & 0.5279 & 6.5897 & 6.5830 & 79.1220 & 75.0715 & 88.8484 & $1.9693\times10^{-4}$ & 1.4133 & 5.6127 & 5.6113 & 0.03\% \\
+       \midrule
+       \multicolumn{13}{|c|}{\textbf{Case 5}} \\
+       \midrule
+       Code & Resolution & $P$ & $\left\langle T \right\rangle_{min}$ & $\left\langle T \right\rangle_{max}$ & Nu$^{top}_{min}$ & Nu$^{top}_{max}$ &
+       $v_{\textrm{rms}}^{min}$ & $v_{\textrm{rms}}^{max}$ & \multicolumn{2}{c}{$(\left\langle \Phi \right\rangle/Ra)_{min}$} & 
+       \multicolumn{2}{c|}{$(\left\langle \Phi \right\rangle/Ra)_{max}$} \\
+       \hline
+       \rowcolor{gray!25!}
+         YACC & $100\times100$ & 0.0792 & 0.6543 & 0.6722 & 2.6950 & 7.2792 & 41.9813 & 98.8230 & \multicolumn{2}{c}{1.4347} & 
+         \multicolumn{2}{c|}{9.2748} \\
+         ELEFANT & $100\times100$ & 0.076 & 0.6514 & 0.6693 & 2.6808 & 7.3506 & 41.2578 & 100.089 & \multicolumn{2}{c}{1.3324} & 
+         \multicolumn{2}{c|}{9.5289} \\
+         \rowcolor{gray!25!}
+         Stone 28 & $32\times32$ & 0.0764 & 0.6521 & 0.6697 & 2.6912 & 7.0763 & 41.61 & 98.183 & \multicolumn{2}{c}{-} & 
+         \multicolumn{2}{c|}{-} \\
+     %    FALCON & $32\times32$ & & 0.7750 & 3.4381 & 2.7363 & 248.3337 & 2.0022 & 2.7813 & \multicolumn{2}{c}{-} & 
+     %     \multicolumn{2}{c|}{-} \\
+     %    \rowcolor{gray!25!}
+         FALCON & $100\times100$ & 0.0775 & 0.6519 & 0.6697 & 2.6847 & 7.3629 & 41.5256 & 99.5466 & \multicolumn{2}{c}{1.3399} & 
+         \multicolumn{2}{c|}{9.3993} \\
+  \bottomrule
+  \end{tabular}}
+  \label{tab:visco_mantle}
+  \end{table}

@@ -1,0 +1,20 @@
+\section{Lagrangian markers}\label{sec:markers}
+Elemental properties (density, viscosity, thermal conductivity, specific heat and thermal expansion) needed to solve Eqs. \ref{eq:mass_0}, \ref{eq:momentum}
+and \ref{eq:energy} are related to the composition of each element, determined by means of Lagrangian markers that are characteristic of different materials
+in the domain. Elemental properties (with the sole exception of the viscosity) are calculated using an arithmetic mean, as
+\begin{eqnarray}
+P_e=\frac{1}{n}\sum_{i=1}^n P_i
+\end{eqnarray}
+where $P_e$ is the elemental property, $P_i$ is the property characteristic of the material of each marker and $n$ is the number of markers of the element.
+Differently, the average scheme for the elemental viscosity can be chosen between harmonic, geometric and arithmetic mean. Markers can be placed regularly or
+randomly at the beginning of the simulation and their advection is performed by either a 2nd-order or a 4th-order Runge-Kutta in space, interpolating the velocity 
+field on each marker by means of the shape functions (see Section \ref{sec:runge}). The interpolated velocity is then corrected by means of the Conservative
+Velocity Interpolation (CVI), which introduces a corrective term to reduce dispersion and clustering of particles in both steady state and time-dependent 
+\citep{Wang2015} (see Section \ref{sec:CVI}).
+
+The initial distribution of the markers is created using the open-source code library
+Geodynamic World Builder \citep{Fraters2019}. During the simulation, each marker carries memory of temperature, pressure and accumulated strain, which are
+determined interpolating the relative nodal parameter. In particular, pressure is interpolated onto each marker after the smoothing procedure. The number
+of markers contained in each element is maintained between $n_{min}$ and $n_{max}$. When in an element there are less markers than $n_{min}$ the code adds
+random markers to reach the $n_{min}$, while if the number is higher than $n_{max}$ some of them are randomly deleted. When new markers are added, they assume
+the properties of the nearest marker. In this way elements are never empty and maintain a number of markers inside a prefixed range.

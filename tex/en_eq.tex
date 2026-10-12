@@ -1,0 +1,17 @@
+\section{The energy equation}\label{sec:en_eq}
+The stabilisation of the advection term of the energy equation (Eq. \ref{eq:energy}) needed to avoid possible oscillations in the thermal solution in the case
+when advection dominates over diffusion, is implemented by means of a streamline-upwind Petrov–Galerkin (SUPG) method, for which the advection term is modified
+follows the discussion in \citet{Thieulot2011} and \citet{Thieulot2014} (see Section \ref{sec:advection} for benchmark). The total internal heat production
+$H_{tot}$ in Eq. \ref{eq:energy} includes radiogenic heating $H_r$, shear heating $H_s$ and adiabatic heating $H_a$, where
+\begin{eqnarray}\label{eq:shear}
+H_s=2\eta \dot{\bm{\epsilon}} : \dot{\bm{\epsilon}} = 2\eta(\dot{\epsilon}_{xx}^2+\dot{\epsilon}_{yy}^2+2\dot{\epsilon}_{xy}^2)
+\end{eqnarray}
+and
+\begin{eqnarray}\label{eq:adiabatic}
+H_a=T \alpha \frac{Dp}{Dt} \approx -\alpha T \rho g_y v
+\end{eqnarray}
+The correctness of the implementation and the computation of shear and adiabatic heating is verified performing an exercise with an analytical solution
+(Section \ref{sec:simple_shear}) and Exercise 9.4 in \citet{Gerya2010} (Section \ref{sec:shear}). Furthermore, mantle convection and thin layer entrainment
+benchmarks (Sections \ref{sec:mantle} and \ref{sec:thin}, respectively) are performed to verify that the code solve correctly Eqs. \ref{eq:momentum_penalty}
+and \ref{eq:energy} in case of a temperature field characterised by an initial perturbation and with a temperature-dependent density. At last, the viscoplastic
+mantle convection benchmark is performed to check also the viscoplasticity in case of a initial perturbed temperature field (Section \ref{sec:visco_mantle}).

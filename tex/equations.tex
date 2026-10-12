@@ -1,0 +1,35 @@
+\section{Governing equations}\label{sec:equations}
+The code is written in Fortran90 and uses the finite element method (FEM) with quadrilateral $Q_1 \times P_0$ elements (continuous bilinear velocity and
+discontinuous constant pressure), associated with MUMPS\footnote{\url{http://mumps.enseeiht.fr/}} \citep{Amestoy2001,Amestoy2019} that is a software package
+for solving systems of linear equations of the form $A \cdot x = b$, where \textit{A} is a square sparse matrix, by means of a direct method. Since
+$Q_1 \times P_0$ elements do not satisfy Ladyzhenskaya, Babuska and Brezzi (LBB) stability condition \citep{Donea2003}, elemental pressure is elaborated
+in post-processing to avoid spurious pressures by means of a double interpolation to smooth the pressure. Following this procedure, the elemental pressure
+is interpolated onto nodes and then back onto elements. After the smoothing procedure, the pressure field is calculated again on the nodes to be used in
+combination with the lithostatic pressure, which is calculated onto nodes. Correctness of the solution and performances of the solver in terms of time and
+memory usage are tested solving the Stokes flow with the analytical solution proposed by \citet{Donea2003} (Section \ref{sec:stokes}).
+
+The thermo-mechanics of crust-mantle systems is described by means of the conservation of mass, momentum and energy equations, expressed as follows:
+\begin{eqnarray}
+\label{eq:mass}\frac{\partial \rho}{\partial t}+\bm{\nabla} \cdot (\rho \bm{u})&=&0\\
+\label{eq:momentum}-\bm{\nabla} p + \bm{\nabla} \cdot \bm{\tau} + \rho \bm{g}&=&0\\
+\label{eq:energy}\rho C_p \left(\frac{\partial T}{\partial t} + \bm{u} \cdot \bm{\nabla} T \right)&=&\bm{\nabla} \cdot \left(k\bm{\nabla} T\right) + H_{tot}
+\end{eqnarray}
+where $\rho$ is the density, $\bm{u}$ is the velocity, \textit{p} is the pressure, $\bm{\tau}$ is the deviatoric stress, $\bm{g}$ is the gravity acceleration,
+$C_p$ is the specific heat at constant pressure, \textit{T} is the temperature, \textit{k} is the thermal conductivity and $H_{tot}$ is the total internal heat
+production. Density variations due to temperature are generally small enough to assume the density as constant ($\rho=\rho_0$) in Eq. \ref{eq:mass} and in
+Eq. \ref{eq:energy}, while it must be treated as a variable in the buoyancy term of Eq. \ref{eq:momentum}, such that
+\begin{eqnarray}
+\rho=\rho_0(1-\alpha(T-T_0))
+\end{eqnarray}
+where $\rho_0$ is the density at a reference temperature $T_0$ and $\alpha$ is the coefficient of thermal expansion. Eq. \ref{eq:mass} then can be rewritten as
+\begin{eqnarray}\label{eq:mass_0}\bm{\nabla} \cdot \bm{u}=0
+\end{eqnarray}
+This simplification is known as the Boussinesq approximation.
+
+The time step $dt$ is chosen in according to Courant-Friedrichs-Lewy condition \citep{Anderson1995}, such that
+\begin{eqnarray}\label{eq:cfl}
+dt=C_n\; \min\left(\frac{\Delta x}{\max|\bm{u}|},\frac{(\Delta x)^2}{\kappa}\right)
+\end{eqnarray}
+where $0<C_n<1$ is the Courant (CFL) number, $\Delta x$ is the minimum dimension of smallest element, $\max|\bm{u}|$ is the maximum velocity calculated on the
+entire domain and
+$\kappa=\frac{k}{\rho C_p}$ is the thermal diffusivity \citep{Thieulot2014}.

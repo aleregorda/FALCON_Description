@@ -1,0 +1,33 @@
+\subsection{Error measurements}\label{sec:error}
+In order to determine the accuracy of velocity and pressure field of the benchmarks, the $L_2$-norm is computed by numerical integration on the Gauss-Legendre
+quadrature points. $L_2$-norm for pressure and velocity errors can be evaluated as
+\begin{eqnarray}
+\label{errp}\textrm{err}_p&=&\sqrt{\sum_{i=1}^{n_e}\sum_{q=1}^{n_q}\left(|p^n_i(r_q)-p^a_i(r_q)|^2\right)w_q|J_q|} \\
+\label{errv}\textrm{err}_v&=&\sqrt{\sum_{i=1}^{n_e}\sum_{q=1}^{n_q}\left(|u^n_i(r_q)-u^a_i(r_q)|^2+|v^n_i(r_q)-v^a_i(r_q)|^2\right)w_q|J_q|}
+\end{eqnarray}
+respectively, where $n_e$ is the number of elements, $n_q$ is the number of quadrature points per element, $p^n_i(r_q)$ and $p^a_i(r_q)$ are the numerical and
+analytical pressure, respectively, in each quadrature point $q$, $w_q$  and $J_q$ are the weight and the Jacobian at the quadrature point
+$q$, $u^n_i(r_q)$, $v^n_i(r_q)$, $u^a_i(r_q)$ and $v^a_i(r_q)$ are the numerical and analytical velocities, respectively, in each quadrature point $q$.
+
+Other quantities used as comparison with original benchmarks are the root-mean-square velocity over the whole domain and over the surface
+\begin{eqnarray}
+\label{vrms}v_{\textrm{rms}}&=&\sqrt{\int_{\Omega}|\bm{v}|^2 d\Omega} \\
+\label{vrms_top}v_{\textrm{rms}}^{top}&=&\sqrt{\int_0^1 u^2 \bigg|_{y=1} dx}
+\end{eqnarray}
+respectively, top and bottom Nusselt numbers
+\begin{eqnarray}
+\label{nu}\textrm{Nu}^{top/bottom}=-\int_0^1\frac{\partial T}{\partial y} \bigg|_{y=1/y=0} dx
+\end{eqnarray}
+the average rate of work done against gravity
+\begin{eqnarray}
+\label{w}\left\langle W \right\rangle=\int_{\Omega}T u_y d\Omega
+\end{eqnarray}
+the average rate of viscous dissipation
+\begin{eqnarray}
+\label{phi}\left\langle \Phi \right\rangle=\int_{\Omega}\tau_{ij}\dot{\epsilon}_{ij} d\Omega
+\end{eqnarray}
+and the percentage error between $\left\langle W \right\rangle$ and $\left\langle \Phi \right\rangle/Ra$
+\begin{eqnarray}
+\label{delta}\delta=\frac{\left|\left\langle W \right\rangle -\frac{\left\langle \Phi \right\rangle}{Ra} \right|}{\max \left(\left\langle W \right\rangle,
+\frac{\left\langle \Phi \right\rangle}{Ra}\right)}\times100
+\end{eqnarray}

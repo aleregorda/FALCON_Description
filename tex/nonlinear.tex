@@ -1,0 +1,69 @@
+\section{Non-linear rheologies}\label{sec:nonlinear}
+Non-linear rheologies are implemented combining viscous creep (dislocation and diffusion) and plastic yielding. For each marker, diffusion and dislocation
+viscosity ($\eta_{df|ds}$) can be determined as follows \citep{Karato1993,Warren2008b,Wang2016}:
+\begin{eqnarray}\label{eq:viscous}
+\eta_{df|ds}=f_s \left(\frac{d^m}{A}\right)^{\frac{1}{n}} \left (\frac{2^{\frac{1-n}{n}}}{3^{\frac{n+1}{2n}}} \right)
+I_2^{\frac{(1-n)}{n}}\exp\left(\frac{Q+pV}{nRT}\right)
+\end{eqnarray}
+where $f_s$ is a scaling factor used to represent lithologies that are stronger or weaker than the base set, $d$ is the grain size, $m$ is the grain size exponent,
+$n$ is the stress exponent, $A$ is the uniaxial pre-exponential factor, $I_2$ is the square root of the second invariant of the strain rate tensor, $Q$ is the
+activation energy, $p$ is the pressure, $V$ is the activation volume, $R$ is the gas constant and $T$ is the temperature.
+Pressures and temperatures are determined by the interpolation of the nodal parameters, while strain rates are calculated by means of the
+derivative of the velocities on the nodes. In case of diffusion creep $n=1$ and $m>0$, in case of dislocation creep $n>1$ and $m=0$. The viscous creep $\eta_{cp}$
+is then calculated as the harmonic average between $\eta_{df}$ and $\eta_{ds}$:
+\begin{eqnarray}\label{eq:visco_creep}
+\eta_{cp}=\left(\frac{1}{\eta_{df}}+\frac{1}{\eta_{ds}}\right)^{-1}
+\end{eqnarray}
+The implementation of the non-linear viscous creep viscosity depending on the strain rate is tested by means of the slab detachment benchmark
+(Section \ref{sec:slab}).
+
+Plastic yielding is implemented rescaling $\eta_{cp}$ in order to limit the stress below the yield stress $\sigma_y$ \citep{Thieulot2008,Thieulot2014,Glerum2018},
+obtaining
+\begin{eqnarray}\label{eq:plastic}
+\eta_{pl}=\frac{\sigma_y}{2I_2}
+\end{eqnarray}
+where $\eta_{pl}$ is the plastic viscosity and the yield stress is determined following the Drucker-Prager criterion, such as
+\begin{eqnarray}\label{eq:yield}
+\sigma_y=C\;\cos(\phi)+p\;\sin(\phi)
+\end{eqnarray}
+where $C$ is the cohesion and $\phi$ is the internal friction angle. In case of negative pressure it is imposed equal to 0, so that negative yield stress are
+excluded. The correctness of the non-linear solution in case of plastic viscosity with variable internal friction angle is verified performing indenter and
+brick experiments (Sections \ref{sec:indenter} and \ref{sec:brick}, respectively).
+
+Plastic yielding and viscous creep are then combined to obtain a viscoplastic viscosity $\eta_{vp}$ as follows, assuming that they are independent processes
+\citep{Karato2008,Glerum2018}:
+\begin{eqnarray}\label{eq:viscoplastic}
+\eta_{vp}=\min(\eta_{cp},\eta_{pl})
+\end{eqnarray}
+Finally, effective viscosity $\eta_{eff}$ is capped by the minimum and the maximum viscosity ($\eta_{min}$ and $\eta_{max}$, respectively) to avoid extremely
+low or high viscosity \citep{Glerum2018} as follows
+\begin{eqnarray}\label{eq:effective}
+\eta_{eff}=\min(\max(\eta_{vp},\eta_{min}),\eta_{max})
+\end{eqnarray}
+Viscous creep and plastic yielding are non-linear rheologies because of their dependence on the velocity field through pressure and strain rates. Therefore,
+the solution is determined by means of Picard-type iterations, until convergence of the velocity field \citep{Glerum2018}. The convergence is verified at each
+iteration $i$ via the nonlinear residual $\bm{\mathcal{R}}^i$ that can be determined as
+\begin{eqnarray}\label{eq:convergence}
+\bm{\mathcal{R}}^i= \mathbb{K} (\eta_{eff}(\dot{\bm{\epsilon}}^{i-1},p^{i-1}))\cdot \bm{v}^{i-1} - \bm{f}^i
+\end{eqnarray}
+%\begin{eqnarray}\label{eq:convergence}
+%\chi=1-\frac{\langle (\bm{v}^i-\langle\bm{v}^i\rangle)\cdot (\bm{v}^{i+1}-\langle\bm{v}^{i+1}\rangle) \rangle}{\sqrt{\sigma^i\sigma^{i+1}}}
+%\end{eqnarray}
+%Iterations are performed until either convergence ($\chi<tol$) or maximal number of non-linear iterations ($it_{max}$) is reached.
+where $\mathbb{K}$ is the Stiffness matrix and $\bm{f}$ is the right hand side vector \citep{Spiegelman2016,Glerum2018}.  The $L_2$-norm is extracted from
+$\bm{\mathcal{R}}^i$ and it is normalised as follows
+\begin{eqnarray}\label{eq:convergence_res}
+\frac{||\bm{\mathcal{R}}^i||_2}{||\bm{\mathcal{R}}^0||_2}
+\end{eqnarray}
+where $||\bm{\mathcal{R}}^0||_2$ is the $L_2$-norm of the first nonlinear iteration.
+Since often the normalised nonlinear residual drop very quickly over the first 2-3 iterations, also the $L_2$-norm of velocity and pressure residuals are
+calculated as
+\begin{eqnarray}\label{eq:convergence_vel}
+\frac{||\Delta\bm{v}||_2}{||\bm{v}||_2}=\frac{||\bm{v}_i-\bm{v}_{i-1}||_2}{||\bm{v}_{i}||_2}
+\end{eqnarray}
+and
+\begin{eqnarray}\label{eq:convergence_press}
+  \frac{||\Delta p||_2}{||p||_2}=\frac{||p_i-p_{i-1}||_2}{||p_{i}||_2}
+\end{eqnarray}
+respectively. Iterations are performed until either maximal number of non-linear iterations ($it_{max}$) is reached or all the normalised nonlinear residual, 
+the velocity residual and the pressure residual converge under a defined tolerance $tol$.
