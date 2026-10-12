@@ -2,13 +2,13 @@
 This exercise is performed in an unit square domain composed by $128\times128$ elements. The velocity field is prescribed on the entire domain with
 $\bm{v}=(L_y-y)y\bm{e_x}$; viscosity, density and specific heat are fixed to 1, while thermal conductivity and radiogenic energy are fixed to 0. Therefore,
 the energy equation (Eq. \ref{eq:energy}) can be simplified as
-\begin{eqnarray}
-\frac{\partial T}{\partial t}=H_s\nonumber
-\end{eqnarray}
+%\begin{eqnarray}
+$\frac{\partial T}{\partial t}=H_s\nonumber$
+%\end{eqnarray}
 and fixing $T(t=0)=0$, the temperature can be find as
-\begin{eqnarray}
-T(t)=H_s t\nonumber
-\end{eqnarray}
+%\begin{eqnarray}
+$T(t)=H_s t\nonumber$
+%\end{eqnarray}
 In this case we have
 \begin{eqnarray}
 \dot{\epsilon_{xx}}&=&\frac{\partial u}{\partial x}=0 \nonumber \\
@@ -16,12 +16,12 @@ In this case we have
 \dot{\epsilon_{xy}}&=&\frac{1}{2}\left(\frac{\partial v}{\partial x}+\frac{\partial u}{\partial y}\right)=\frac{1}{2}(L_y-2y)\nonumber
 \end{eqnarray}
 and, simplifying Eq. \ref{eq:shear}, shear heating can be calculated as
-\begin{eqnarray}
-H_s(x,y)=(1-2y)^2\nonumber
-\end{eqnarray}
+%\begin{eqnarray}
+$H_s(x,y)=(1-2y)^2\nonumber$
+%\end{eqnarray}
 
 The solution predicted by the model in terms of velocity, temperature and shear heating match well with the analytical solutions (Fig. \ref{fig:analytical_en}). 
-All data can be found at \url{https://github.com/aleregorda/Benchmarks/tree/main/Energy_equation/Simple_shear}.
+All data can be found \href{https://github.com/aleregorda/Benchmarks/tree/main/Energy_equation/Simple_shear}{here}.
 
 %\begin{figure}
 %\centering

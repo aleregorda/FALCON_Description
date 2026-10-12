@@ -22,22 +22,20 @@ Q&=&2\sqrt{\frac{L_x}{\pi u_0}}\nonumber
 \end{eqnarray}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{./Figures/vrms_thin.pdf}
+\includegraphics[width=10cm]{./Figures/vrms_thin.pdf}
 \caption{$v_{\textrm{rms}}$ for the thin layer experiment as function of time for different grid resolution. Results are compared with results obtained by
 \citet{vanKeken1997} (black lines) and with ASPECT and ELEFANT.}
 \label{fig:thin}
 \end{figure}
 
+\begin{wrapfigure}{r}{11cm}
+\includegraphics[width=10cm]{./Figures/vrmszero.pdf}
+\caption{$v_{\textrm{rms}}$ at $t=0$ for the thin layer experiment as function of the element size for different aspect ratios of the elements. Results are compared
+with results obtained by \citet{vanKeken1997} (black dots in the grey area) and with ASPECT and ELEFANT.}
+\label{fig:thin_initial}
+\end{wrapfigure}
 The experiment is performed with two grid resolution ($125\times40$ and $200\times80$ elements), with 100 markers per element and CFL of 0.25. Root-mean-square velocity calculated as in Eq. \ref{vrms} for both the simulations match well with results from \citet{vanKeken1997} and obtained with ASPECT
 \citep{Kronbichler2012,Heister2017,Bangerth2020,Bangerth2020a} and ELEFANT \citep{Thieulot2014}, obtained with similar grid resolutions
 (Fig. \ref{fig:thin}). In addition, a variety of simulations with different resolutions and aspect ratios are performed to verify that the sensitivity of the
 initial velocity field. Results match well with results from \citet{vanKeken1997} (in the grey area) and \citet{Thieulot2014} (Fig. \ref{fig:thin_initial}). 
-All data can be found at \url{https://github.com/aleregorda/Benchmarks/tree/main/Momentum%2BEnergy/Thin_layer}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=12cm]{./Figures/vrmszero.pdf}
-\caption{$v_{\textrm{rms}}$ at $t=0$ for the thin layer experiment as function of the element size for different aspect ratios of the elements. Results are compared
-with results obtained by \citet{vanKeken1997} (black dots in the grey area) and with ASPECT and ELEFANT.}
-\label{fig:thin_initial}
-\end{figure}
+All data can be found \href{https://github.com/aleregorda/Benchmarks/tree/main/Momentum%2BEnergy/Thin_layer}{here}.
